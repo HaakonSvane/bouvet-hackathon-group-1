@@ -1,4 +1,4 @@
-import { ChatNode } from '@/types';
+import { ChatNode, PersonId } from '@/types';
 import React, { FC, Fragment } from 'react';
 import styled from '@emotion/styled';
 import { Message } from './Message';
@@ -16,7 +16,7 @@ interface Props {
     node: ChatNode;
     selectedNode: ChatNode | undefined;
     selectedNodeChildren: ChatNode[];
-    getNextTitles: (node: ChatNode, userId: 'teacher') => void;
+    getNextTitles: (node: ChatNode, userId: PersonId) => void;
     getText: (node: ChatNode) => void;
 }
 

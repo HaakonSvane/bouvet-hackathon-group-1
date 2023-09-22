@@ -1,6 +1,8 @@
 import { PersonId } from '@/types';
-import { userAvatars } from './userAvatars';
+import { personAvatars } from './userAvatars';
 
 export const personIdToImageSrc: Record<PersonId, string> = {
-    teacher: userAvatars.user1.src,
+    teacher: personAvatars.teacher.src,
+    dad: personAvatars.dad.src,
+    fakeNews: personAvatars.fakeNews.src,
 };

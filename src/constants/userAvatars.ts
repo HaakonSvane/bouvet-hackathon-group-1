@@ -3,7 +3,7 @@ import fakeNews from '../../public/static/fakeNews.png';
 import teacher from '../../public/static/teacher.png';
 
 
-export const userAvatars = {
+export const personAvatars = {
     dad,
     fakeNews,
     teacher,

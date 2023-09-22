@@ -1,6 +1,6 @@
 import { ChatNode, PersonId } from '@/types';
 import { Avatar, Typography } from '@mui/joy';
-import { userAvatars } from '@/constants/userAvatars';
+import { personAvatars } from '@/constants/userAvatars';
 import styled from '@emotion/styled';
 import { personIdToImageSrc } from '@/constants/personIdToSrc';
 import { FC } from 'react';
