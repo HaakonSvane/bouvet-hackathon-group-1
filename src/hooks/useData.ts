@@ -24,7 +24,7 @@ export const useData = () => {
   }, [messages, selectedId])
 
   /** Get full text for node based on title */
-  const setMessage = async (message: ChatNode) => {
+  const getText = async (message: ChatNode) => {
     if (message.parentId === null) return;
     if (message.personId === null) return;
     const history: string[] = [];
@@ -49,8 +49,8 @@ export const useData = () => {
   }
 
   /** Get and set child nodes of current node with given user */
-  const getChoices = (message: ChatNode, userId: PersonId) => {
-
+  const getNextTitles = (message: ChatNode, userId: PersonId) => {
+    return null;
   }
 
   const getPrompt = async () => {
@@ -66,7 +66,10 @@ export const useData = () => {
   }, []);
 
   return {
-    messages
+    messages,
+    selectedMessage,
+    getText,
+    getNextTitles,
   };
 
 }
