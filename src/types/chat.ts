@@ -19,5 +19,5 @@ export type ChatNode = {
     parentId: string | null;
     title: string;
     text: string | null;
-    personId: PersonId;
+    personId: PersonId | null;
 }

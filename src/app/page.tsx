@@ -3,6 +3,7 @@ import { useGetPokemonQuery } from "@/redux/api/pokeAPi";
 import { OpenAIClient, AzureKeyCredential, ChatMessage } from "@azure/openai";
 import { Message } from "@/components/Message";
 import { PersonChoice } from "@/components/PersonChoice";
+import { useData } from "../hooks/useData";
 
 const client = new OpenAIClient(
   "https://hackathon-group1-openai.openai.azure.com/",
@@ -10,6 +11,7 @@ const client = new OpenAIClient(
 );
 
 export default function Home() {
+  const {messages} = useData();
 
   return (
     <main>

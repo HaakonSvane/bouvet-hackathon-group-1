@@ -12,7 +12,7 @@ export const useData = () => {
  const [messages, setMessages] = useState<ChatNode[]>([{
     id: 'root',
     parentId: null,
-    personId: 'root',
+    personId: null,
     title: 'Jordbær',
     text: 'Jordbær',
   }]);
@@ -26,6 +26,7 @@ export const useData = () => {
   /** Get full text for node based on title */
   const setMessage = async (message: ChatNode) => {
     if (message.parentId === null) return;
+    if (message.personId === null) return;
     const history: string[] = [];
     let current: ChatNode | undefined = message;
     while(current && current.parentId !== null) {
@@ -35,7 +36,7 @@ export const useData = () => {
     const promptHistory = history.map((h): ChatMessage => ({content: h, role: 'assistant'}));
     const { choices } = await client.getChatCompletions(
       "exploring-for-kids", [
-        {content: persons[message.parentId].contentPrompt, role: 'system'},
+        {content: persons[message.personId].contentPrompt, role: 'system'},
         { content: current?.text ?? null, role: 'user'},
         ...promptHistory,
         {content: `Tell me more about "${message.title}"`, role: 'user'}
@@ -64,5 +65,8 @@ export const useData = () => {
     getPrompt();
   }, []);
 
+  return {
+    messages
+  };
 
 }
