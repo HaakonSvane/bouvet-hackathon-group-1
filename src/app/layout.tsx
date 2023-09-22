@@ -1,7 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import ThemeRegistry from './ThemeRegistery'
+import { ReduxProvider } from './ReduxProvider'
+import { ThemeRegistry } from './ThemeRegistery'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
+        <ReduxProvider>
+          <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
+        </ReduxProvider>
       </body>
     </html>
   );

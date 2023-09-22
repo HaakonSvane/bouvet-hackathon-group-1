@@ -6,9 +6,10 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import {useState} from 'react';
 
+
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
-export default function ThemeRegistry(props: any) {
+export function ThemeRegistry(props: any) {
   const { options, children } = props;
 
   const [{ cache, flush }] = useState(() => {
@@ -52,11 +53,11 @@ export default function ThemeRegistry(props: any) {
   });
 
   return (
-    <CacheProvider value={cache}>
-      <CssVarsProvider>
-        <CssBaseline />
-        {children}
-      </CssVarsProvider>
-    </CacheProvider>
+      <CacheProvider value={cache}>
+        <CssVarsProvider>
+          <CssBaseline />
+          {children}
+        </CssVarsProvider>
+      </CacheProvider>
   );
 }
