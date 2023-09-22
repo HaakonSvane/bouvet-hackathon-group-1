@@ -23,20 +23,22 @@ export default function Home() {
 
     return (
         <main>
-            <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                {[...nodes].reverse().map((node) => {
-                    return (
-                        <Fragment key={node.id}>
-                            <NodeRenderer
-                                node={node}
-                                selectedNode={selectedNode}
-                                selectedNodeChildren={selectedNodeChildren}
-                                getNextTitles={getNextTitles}
-                                getText={getText}
-                            />
-                        </Fragment>
-                    );
-                })}
+            <div className="flex min-h-screen py-10">
+                <div className="flex flex-col">
+                    {[...nodes].reverse().map((node) => {
+                        return (
+                            <Fragment key={node.id}>
+                                <NodeRenderer
+                                    node={node}
+                                    selectedNode={selectedNode}
+                                    selectedNodeChildren={selectedNodeChildren}
+                                    getNextTitles={getNextTitles}
+                                    getText={getText}
+                                    />
+                            </Fragment>
+                        );
+                    })}
+                </div>
             </div>
         </main>
     );

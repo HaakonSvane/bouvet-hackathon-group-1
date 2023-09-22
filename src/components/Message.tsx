@@ -27,7 +27,7 @@ export const Message = (props: {chatNode: ChatNode}) => {
             <Avatar ref={refs.setReference} src={personIdToImageSrc[personId]}/>
             <div>
                 <div ref={refs.setFloating} className="px-4 py-2 rounded-md max-w-md" style={{backgroundColor: bubbleColor, ...floatingStyles}}>
-                    <Typography textColor="white">Here is some long ass text that I thought I should share with you. Here is some long ass text that I thought I should share with you.</Typography>                        
+                    <Typography textColor="white">{props.chatNode.text}</Typography>                        
                     <FloatingArrow ref={arrowRef} fill={bubbleColor} context={context}/>
                 </div>
             </div>
