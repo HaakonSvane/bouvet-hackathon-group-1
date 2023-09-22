@@ -4,9 +4,14 @@ import { ChatNode, persons, PersonId } from '../types';
 import { nanoid } from 'nanoid';
 
 const client = new OpenAIClient(
-  'https://hackathon-group1-openai.openai.azure.com/',
-  new AzureKeyCredential('6fe5dccc9efd4298b9287f44100df5f5')
+  'https://hackathon-group-1-openai.openai.azure.com/',
+  new AzureKeyCredential('1eb5ccc14de64ccca44cce747d9c8c42'),
+  
 );
+
+// deployment-id: exploring-for-kids
+
+// api key: 1eb5ccc14de64ccca44cce747d9c8c42
 
 export const useData = () => {
     const [nodes, setNodes] = useState<ChatNode[]>([
