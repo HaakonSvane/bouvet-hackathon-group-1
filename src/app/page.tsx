@@ -1,69 +1,75 @@
-"use client";
-import { useGetPokemonQuery } from "@/redux/api/pokeAPi";
-import { Table, Typography } from "@mui/joy";
-import Image from "next/image";
+'use client';
+import styled from '@emotion/styled';
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import {
+    MainContainer,
+    ChatContainer,
+    MessageList,
+    Message,
+    MessageInput,
+    Avatar,
+    MessageModel,
+} from '@chatscope/chat-ui-kit-react';
+import { userAvatars } from '@/constants/userAvatars';
+import { useCallback, useState } from 'react';
+
+const MainWrp = styled.main`
+    padding: 1rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+`;
+
+interface ExtendedMessageModel extends MessageModel {
+    avatarSrc: string;
+}
 
 export default function Home() {
+    // * store -------------------------------------------------------------------------
 
-  const {data: pokemon, isFetching} = useGetPokemonQuery('bulbasaur');
-  return (
-    <main>
-      <Typography level="h1">Hello world</Typography>
-      {isFetching && <Typography level="h2">Fetching data...</Typography>}
-      {pokemon && <div className="flex justify-row items-center">
-        <Typography level="h4">{pokemon?.name}</Typography>
-        <Image src={pokemon?.sprites.front_default} alt="bulbasaur" width={50} height={50} />
-      </div>}
+    // * state  ------------------------------------------------------------------------
+    const [messages, setMessages] = useState<ExtendedMessageModel[]>([]);
 
-      <Table aria-label="basic table">
-      <thead>
-        <tr>
-          <th style={{ width: '40%' }}>Dessert (100g serving)</th>
-          <th>Calories</th>
-          <th>Fat&nbsp;(g)</th>
-          <th>Carbs&nbsp;(g)</th>
-          <th>Protein&nbsp;(g)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Frozen yoghurt</td>
-          <td>159</td>
-          <td>6</td>
-          <td>24</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Ice cream sandwich</td>
-          <td>237</td>
-          <td>9</td>
-          <td>37</td>
-          <td>4.3</td>
-        </tr>
-        <tr>
-          <td>Eclair</td>
-          <td>262</td>
-          <td>16</td>
-          <td>24</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>Cupcake</td>
-          <td>305</td>
-          <td>3.7</td>
-          <td>67</td>
-          <td>4.3</td>
-        </tr>
-        <tr>
-          <td>Gingerbread</td>
-          <td>356</td>
-          <td>16</td>
-          <td>49</td>
-          <td>3.9</td>
-        </tr>
-      </tbody>
-    </Table>
-    
-    </main>
-  )
+    // * functions ---------------------------------------------------------------------
+    const handleOnSend = useCallback((message: string) => {
+        setMessages((messages) => [
+            ...messages,
+            {
+                message,
+                sentTime: new Date().toLocaleTimeString(),
+                sender: 'me',
+                direction: 'outgoing',
+                position: 'single',
+                avatarSrc: userAvatars.user1.src,
+            },
+        ]);
+    }, []);
+
+    // * effects -----------------------------------------------------------------------
+
+    return (
+        <MainWrp>
+            <div style={{ position: 'relative', height: '500px', flex: 1 }}>
+                <MainContainer>
+                    <ChatContainer>
+                        <MessageList>
+                            {messages.map((message, index) => (
+                                <Message key={index} model={message}>
+                                    <Avatar
+                                        src={message.avatarSrc}
+                                        name={message.sender}
+                                        status="available"
+                                    />
+                                </Message>
+                            ))}
+                        </MessageList>
+                        <MessageInput
+                            placeholder="Type message here"
+                            onSend={handleOnSend}
+                        />
+                    </ChatContainer>
+                </MainContainer>
+            </div>
+        </MainWrp>
+    );
 }
