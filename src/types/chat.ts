@@ -4,7 +4,7 @@ type Person = {
     contentPrompt: string,
 }
 
-export const persons: { [key: string]: Person } = {
+export const persons: Record<PersonId, Person> = {
     'teacher': {
         name: 'Teacher',
         childrenPrompt: 'You are a pedagogical teacher helping a 7 year old child explore facinating topics. Provide age appropriate factual information to the topics that engages their curiosity. Make sure there are no advanced words not understood by kids. Each fact can only have 9 words. Respond with 3 facts based on the input. Respond only in json with an array called facts with 3 elements.',
@@ -12,7 +12,7 @@ export const persons: { [key: string]: Person } = {
     }
 };
 
-export type PersonId = keyof typeof persons;
+export type PersonId = "teacher";
 
 export type ChatNode = {
     id: string;

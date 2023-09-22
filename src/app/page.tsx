@@ -1,10 +1,10 @@
 "use client";
 import { useGetPokemonQuery } from "@/redux/api/pokeAPi";
 import { OpenAIClient, AzureKeyCredential, ChatMessage } from "@azure/openai";
-import { Table, Typography } from "@mui/joy";
-import Image from "next/image";
 import { useState, useMemo, useEffect } from "react";
 import { ChatNode, persons, PersonId } from "../types";
+import { Message } from "@/components/Message";
+import { PersonChoice } from "@/components/PersonChoice";
 
 const client = new OpenAIClient(
   "https://hackathon-group1-openai.openai.azure.com/",
@@ -69,64 +69,17 @@ export default function Home() {
     getPrompt();
   }, []);
   const {data: pokemon, isFetching} = useGetPokemonQuery('bulbasaur');
+
   return (
     <main>
-      <Typography level="h1">Hello world</Typography>
-      {isFetching && <Typography level="h2">Fetching data...</Typography>}
-      {pokemon && <div className="flex justify-row items-center">
-        <Typography level="h4">{pokemon?.name}</Typography>
-        <Image src={pokemon?.sprites.front_default} alt="bulbasaur" width={50} height={50} />
-      </div>}
-
-      <Table aria-label="basic table">
-      <thead>
-        <tr>
-          <th style={{ width: '40%' }}>Dessert (100g serving)</th>
-          <th>Calories</th>
-          <th>Fat&nbsp;(g)</th>
-          <th>Carbs&nbsp;(g)</th>
-          <th>Protein&nbsp;(g)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Frozen yoghurt</td>
-          <td>159</td>
-          <td>6</td>
-          <td>24</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Ice cream sandwich</td>
-          <td>237</td>
-          <td>9</td>
-          <td>37</td>
-          <td>4.3</td>
-        </tr>
-        <tr>
-          <td>Eclair</td>
-          <td>262</td>
-          <td>16</td>
-          <td>24</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>Cupcake</td>
-          <td>305</td>
-          <td>3.7</td>
-          <td>67</td>
-          <td>4.3</td>
-        </tr>
-        <tr>
-          <td>Gingerbread</td>
-          <td>356</td>
-          <td>16</td>
-          <td>49</td>
-          <td>3.9</td>
-        </tr>
-      </tbody>
-    </Table>
-
+        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            {messages.map(message => (
+                <div key={message.id}>
+                    <Message chatNode={message}/>
+                    <PersonChoice personIds={["teacher", "teacher", "teacher"]} onPersonChoice={(id) => console.log(`Chose ${id}`)}/>
+                </div>
+            ))}
+        </div>
     </main>
   )
 }
