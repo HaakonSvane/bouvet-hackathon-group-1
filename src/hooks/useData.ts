@@ -13,8 +13,8 @@ export const useData = () => {
             id: 'root',
             parentId: null,
             personId: null,
-            title: 'Jordbær',
-            text: 'Jordbær',
+            title: 'Strawberry',
+            text: 'Strawberry',
         },
     ]);
 
