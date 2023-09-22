@@ -19,9 +19,13 @@ export const useData = () => {
 
   const [selectedId, setSelectedId] = useState<string>('root');
 
-  const selectedMessage = useMemo(() => {
+  const selectedNode = useMemo(() => {
     return messages.find(m => m.id === selectedId);
   }, [messages, selectedId])
+
+  const nodeChildren = useMemo(() => {
+    return messages.filter(m => m.parentId === selectedId);
+  }, [messages, selectedId]);
 
   /** Get full text for node based on title */
   const getText = async (message: ChatNode) => {
@@ -66,9 +70,15 @@ export const useData = () => {
   }, []);
 
   return {
+    /** Full list of nodes */
     messages,
-    selectedMessage,
+    /** Active node */
+    selectedNode,
+    /** Children of active node */
+    nodeChildren,
+    /** Get the text for a given node */
     getText,
+    /** Get the three options for the given node with the given person */
     getNextTitles,
   };
 
