@@ -1,28 +1,57 @@
-"use client";
-import { useGetPokemonQuery } from "@/redux/api/pokeAPi";
-import { OpenAIClient, AzureKeyCredential, ChatMessage } from "@azure/openai";
-import { Message } from "@/components/Message";
-import { PersonChoice } from "@/components/PersonChoice";
-import { useData } from "../hooks/useData";
+'use client';
+import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
+import { Message } from '@/components/Message';
+import { PersonChoice } from '@/components/PersonChoice';
+import { useData } from '../hooks/useData';
+import styled from '@emotion/styled';
+import { Fragment } from 'react';
+import NodeRenderer from '@/components/NodeRenderer';
 
 const client = new OpenAIClient(
-  "https://hackathon-group1-openai.openai.azure.com/",
-  new AzureKeyCredential("6fe5dccc9efd4298b9287f44100df5f5")
+    'https://hackathon-group1-openai.openai.azure.com/',
+    new AzureKeyCredential('6fe5dccc9efd4298b9287f44100df5f5')
 );
 
-export default function Home() {
-  const {messages} = useData();
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
 
-  return (
-    <main>
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            {messages.map(message => (
-                <div key={message.id}>
-                    <Message chatNode={message}/>
-                    <PersonChoice personIds={["teacher", "teacher", "teacher"]} onPersonChoice={(id) => console.log(`Chose ${id}`)}/>
-                </div>
-            ))}
-        </div>
-    </main>
-  )
+const FlexRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
+
+export default function Home() {
+    const {
+        getNextTitles,
+        getText,
+        nodes,
+        selectedNode,
+        selectedNodeChildren,
+    } = useData();
+
+    return (
+        <main>
+            <div className="flex flex-col items-center justify-center min-h-screen py-2">
+                {nodes.map((node) => {
+                    return (
+                        <Fragment key={node.id}>
+                            <NodeRenderer
+                                node={node}
+                                selectedNode={selectedNode}
+                                selectedNodeChildren={selectedNodeChildren}
+                                getNextTitles={getNextTitles}
+                                getText={getText}
+                            />
+                        </Fragment>
+                    );
+                })}
+            </div>
+        </main>
+    );
 }

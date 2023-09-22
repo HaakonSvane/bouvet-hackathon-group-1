@@ -1,8 +1,9 @@
-import { PersonId } from '@/types';
+import { ChatNode, PersonId } from '@/types';
 import { Avatar, Typography } from '@mui/joy';
 import { userAvatars } from '@/constants/userAvatars';
 import styled from '@emotion/styled';
 import { personIdToImageSrc } from '@/constants/personIdToSrc';
+import { FC } from 'react';
 
 const FlexRow = styled.div`
     display: flex;
@@ -18,24 +19,32 @@ const FlexRow = styled.div`
     }
 `;
 
-type PersonChoiceProps = {
-    personIds: PersonId[];
+type Props = {
+    personId: PersonId;
     onPress: (personId: PersonId) => void;
+    childrenNode: ChatNode[];
     disabled?: boolean;
 };
 
-export const PersonChoice = (props: PersonChoiceProps) => {
+export const TextChoice: FC<Props> = ({
+    personId,
+    onPress,
+    childrenNode,
+    disabled,
+}) => {
     return (
         <>
             <Typography level="h1">Select something</Typography>
+            <Avatar src={personIdToImageSrc[personId]} />
+
             <FlexRow>
-                {props.personIds.map((personId) => (
+                {childrenNode.map((node) => (
                     <button
-                        key={personId}
-                        onClick={() => props.onPress(personId)}
-                        disabled={props.disabled}
+                        key={node.id}
+                        onClick={() => onPress(personId)}
+                        disabled={disabled}
                     >
-                        <Avatar src={personIdToImageSrc[personId]} />
+                        {node.title || 'Test'}
                     </button>
                 ))}
             </FlexRow>

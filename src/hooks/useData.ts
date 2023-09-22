@@ -9,15 +9,15 @@ const client = new OpenAIClient(
 );
 
 export const useData = () => {
-  const [nodes, setNodes] = useState<ChatNode[]>([
-    {
-      id: 'root',
-      parentId: null,
-      personId: null,
-      title: 'Jordbær',
-      text: 'Jordbær',
-    },
-  ]);
+    const [nodes, setNodes] = useState<ChatNode[]>([
+        {
+            id: 'root',
+            parentId: null,
+            personId: null,
+            title: 'Strawberry',
+            text: 'Strawberry',
+        },
+    ]);
 
   const [selectedId, setSelectedId] = useState<string>('root');
   const [isLoading, setIsLoading] = useState<boolean>(false);
