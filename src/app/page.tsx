@@ -12,20 +12,6 @@ const client = new OpenAIClient(
     new AzureKeyCredential('6fe5dccc9efd4298b9287f44100df5f5')
 );
 
-const FlexColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const FlexRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-`;
-
 export default function Home() {
     const {
         getNextTitles,
@@ -38,7 +24,7 @@ export default function Home() {
     return (
         <main>
             <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                {nodes.map((node) => {
+                {[...nodes].reverse().map((node) => {
                     return (
                         <Fragment key={node.id}>
                             <NodeRenderer

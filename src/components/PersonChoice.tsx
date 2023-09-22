@@ -32,7 +32,9 @@ export const PersonChoice = (props: PersonChoiceProps) => {
                 {props.personIds.map((personId) => (
                     <button
                         key={personId}
-                        onClick={() => props.onPress(personId)}
+                        onClick={() => {
+                            props.onPress(personId);
+                        }}
                         disabled={props.disabled}
                     >
                         <Avatar src={personIdToImageSrc[personId]} />

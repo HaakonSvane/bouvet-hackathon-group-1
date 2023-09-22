@@ -13,10 +13,6 @@ const FlexRow = styled.div`
     height: 5rem;
 
     gap: 3rem;
-
-    button {
-        scale: 1.8;
-    }
 `;
 
 type Props = {

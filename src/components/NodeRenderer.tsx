@@ -39,8 +39,10 @@ const NodeRenderer: FC<Props> = ({
                 <Message chatNode={node} />
                 {!isTextChoice && (
                     <PersonChoice
-                        personIds={['teacher', 'teacher', 'teacher']}
-                        onPress={(id) => getNextTitles(node, id)}
+                        personIds={['teacher', 'dad', 'fakeNews']}
+                        onPress={(id) => {
+                            getNextTitles(node, id);
+                        }}
                         disabled={!isCurrent}
                     />
                 )}
