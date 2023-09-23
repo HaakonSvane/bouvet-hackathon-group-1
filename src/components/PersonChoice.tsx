@@ -1,14 +1,14 @@
-import { PersonId } from '@/types';
+import { PersonId, persons } from '@/types';
 import { Avatar, Typography } from '@mui/joy';
 import { personIdToImageSrc } from '@/constants/personIdToSrc';
 
 type PersonChoiceProps = {
-    personIds: PersonId[];
     onPress: (personId: PersonId) => void;
     disabled?: boolean;
 };
 
 export const PersonChoice = (props: PersonChoiceProps) => {
+    const personKeys = Object.keys(persons) as PersonId[];
     return (
         <div className="flex flex-col gap-4">
             <>
@@ -18,7 +18,7 @@ export const PersonChoice = (props: PersonChoiceProps) => {
                 className="flex flex-row gap-6"
                 style={{ justifyContent: 'center' }}
             >
-                {props.personIds.map((personId) => (
+                {personKeys.map((personId) => (
                     <button
                         key={personId}
                         onClick={() => {

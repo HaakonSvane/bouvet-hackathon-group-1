@@ -31,7 +31,6 @@ const NodeRenderer: FC<Props> = ({
             {!isRoot && <Message chatNode={node} index={index} />}
             {isCurrent && !hasChildren && (
                 <PersonChoice
-                    personIds={['teacher', 'dad', 'fakeNews']}
                     onPress={(id) => {
                         getNextTitles(node, id);
                     }}
