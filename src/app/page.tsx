@@ -1,9 +1,5 @@
 'use client';
-import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
-import { Message } from '@/components/Message';
-import { PersonChoice } from '@/components/PersonChoice';
 import { useData } from '../hooks/useData';
-import styled from '@emotion/styled';
 import { Fragment } from 'react';
 import NodeRenderer from '@/components/NodeRenderer';
 
@@ -17,8 +13,6 @@ export default function Home() {
         nodeChain,
     } = useData();
 
-    console.log(nodes);
-    console.log(selectedNodeChildren)
     return (
         <main>
             <div className="flex min-h-screen py-10">

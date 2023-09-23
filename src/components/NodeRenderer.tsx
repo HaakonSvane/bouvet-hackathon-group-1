@@ -31,8 +31,6 @@ const NodeRenderer: FC<Props> = ({
     const isCurrent = node.id === selectedNode?.id;
     const hasChildren = selectedNodeChildren.length > 0;
 
-    console.log({isCurrent, hasChildren, node: node.id})
-
     return (
         <>
             <FlexColumn>

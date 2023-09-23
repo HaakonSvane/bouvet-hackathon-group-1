@@ -25,7 +25,6 @@ type PersonChoiceProps = {
 };
 
 export const PersonChoice = (props: PersonChoiceProps) => {
-    console.log("PersonChoice")
     return (
         <>
             <Typography level="h1">Select something</Typography>

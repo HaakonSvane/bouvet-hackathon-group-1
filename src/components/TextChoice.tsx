@@ -28,7 +28,6 @@ export const TextChoice: FC<Props> = ({
     childrenNode,
     disabled,
 }) => {
-    console.log("TextChoice")
     return (
         <>
             <Typography level="h1">Select something</Typography>
