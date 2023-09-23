@@ -1,22 +1,6 @@
 import { PersonId } from '@/types';
 import { Avatar, Typography } from '@mui/joy';
-import { personAvatars } from '@/constants/userAvatars';
-import styled from '@emotion/styled';
 import { personIdToImageSrc } from '@/constants/personIdToSrc';
-
-const FlexRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 5rem;
-
-    gap: 3rem;
-
-    button {
-        scale: 1.8;
-    }
-`;
 
 type PersonChoiceProps = {
     personIds: PersonId[];
@@ -26,9 +10,11 @@ type PersonChoiceProps = {
 
 export const PersonChoice = (props: PersonChoiceProps) => {
     return (
-        <>
-            <Typography level="h1">Select something</Typography>
-            <FlexRow>
+        <div className="flex flex-col gap-4">
+            <>
+                <Typography level="h3">Select person to explain</Typography>
+            </>
+            <div className="flex flex-row gap-6">
                 {props.personIds.map((personId) => (
                     <button
                         key={personId}
@@ -37,10 +23,10 @@ export const PersonChoice = (props: PersonChoiceProps) => {
                         }}
                         disabled={props.disabled}
                     >
-                        <Avatar src={personIdToImageSrc[personId]} />
+                        <Avatar size="lg" src={personIdToImageSrc[personId]} />
                     </button>
                 ))}
-            </FlexRow>
-        </>
+            </div>
+        </div>
     );
 };

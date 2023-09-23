@@ -1,19 +1,8 @@
 import { ChatNode, PersonId } from '@/types';
-import { Avatar, Typography } from '@mui/joy';
+import { Avatar, Card, Button, Typography } from '@mui/joy';
 import { personAvatars } from '@/constants/userAvatars';
-import styled from '@emotion/styled';
 import { personIdToImageSrc } from '@/constants/personIdToSrc';
 import { FC } from 'react';
-
-const FlexRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 5rem;
-
-    gap: 3rem;
-`;
 
 type Props = {
     personId: PersonId;
@@ -29,21 +18,22 @@ export const TextChoice: FC<Props> = ({
     disabled,
 }) => {
     return (
-        <>
-            <Typography level="h1">Select something</Typography>
-            <Avatar src={personIdToImageSrc[personId]} />
-
-            <FlexRow>
+        <div className="flex flex-col gap-4">
+            <div className="flex flex-row items-center gap-8">
+                <Typography level="h3">Select an interest</Typography>
+                <Avatar size="sm" src={personIdToImageSrc[personId]} />
+            </div>
+            <div className="flex flex-row gap-2">
                 {childrenNode.map((node) => (
-                    <button
-                        key={node.id}
-                        onClick={() => onPress(node)}
-                        disabled={disabled}
-                    >
-                        {node.title || 'Test'}
-                    </button>
+                <Button
+                    key={node.id}
+                    onClick={() => onPress(node)}
+                    disabled={disabled}
+                >
+                    {node.title || 'Test'}
+                </Button>
                 ))}
-            </FlexRow>
-        </>
+            </div>
+        </div>
     );
 };

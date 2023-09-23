@@ -1,16 +1,9 @@
 import { ChatNode, PersonId } from '@/types';
-import React, { FC, Fragment } from 'react';
-import styled from '@emotion/styled';
+import React, { FC } from 'react';
 import { Message } from './Message';
 import { PersonChoice } from './PersonChoice';
 import { TextChoice } from './TextChoice';
-
-const FlexColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
+import { CurrentTopic } from './CurrentTopic';
 
 interface Props {
     node: ChatNode;
@@ -28,14 +21,14 @@ const NodeRenderer: FC<Props> = ({
     getText,
 }) => {
     // * state  ------------------------------------------------------------------------
+    const isRoot = node.parentId === null;
     const isCurrent = node.id === selectedNode?.id;
     const hasChildren = selectedNodeChildren.length > 0;
 
     return (
-        <>
-            <FlexColumn>
-                <Message chatNode={node} />
-                {!isCurrent && node.text}
+        <div>
+            <div>
+                {!isRoot && <Message chatNode={node} />}
                 {isCurrent && !hasChildren && (
                     <PersonChoice
                         personIds={['teacher', 'dad', 'fakeNews']}
@@ -53,8 +46,9 @@ const NodeRenderer: FC<Props> = ({
                         disabled={!isCurrent}
                     />
                 )}
-            </FlexColumn>
-        </>
+        
+            </div>      
+        </div>
     );
 };
 

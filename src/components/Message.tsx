@@ -23,7 +23,7 @@ export const Message = (props: {chatNode: ChatNode}) => {
     const bubbleColor = personIdToColor[personId];
 
     return (
-        <>
+        <div className="w-full">
             <Avatar ref={refs.setReference} src={personIdToImageSrc[personId]}/>
             <div>
                 <div ref={refs.setFloating} className="px-4 py-2 rounded-md max-w-md" style={{backgroundColor: bubbleColor, ...floatingStyles}}>
@@ -31,6 +31,6 @@ export const Message = (props: {chatNode: ChatNode}) => {
                     <FloatingArrow ref={arrowRef} fill={bubbleColor} context={context}/>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
