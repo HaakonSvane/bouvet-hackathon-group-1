@@ -18,17 +18,20 @@ export const PersonChoice = (props: PersonChoiceProps) => {
                 className="flex flex-row gap-6"
                 style={{ justifyContent: 'center' }}
             >
-                {personKeys.map((personId) => (
-                    <button
-                        key={personId}
-                        onClick={() => {
-                            props.onPress(personId);
-                        }}
-                        disabled={props.disabled}
-                    >
-                        <Avatar size="lg" src={personIdToImageSrc[personId]} />
-                    </button>
-                ))}
+                {personKeys.map((personId) => {
+                    return (
+                        <button
+                            title={persons[personId].name}
+                            key={personId}
+                            onClick={() => {
+                                props.onPress(personId);
+                            } }
+                            disabled={props.disabled}
+                        >
+                            <Avatar size="lg" src={personIdToImageSrc[personId]} />
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
