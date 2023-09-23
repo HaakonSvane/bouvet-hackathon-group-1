@@ -14,7 +14,10 @@ export const PersonChoice = (props: PersonChoiceProps) => {
             <>
                 <Typography level="h3">Select person to explain</Typography>
             </>
-            <div className="flex flex-row gap-6">
+            <div
+                className="flex flex-row gap-6"
+                style={{ justifyContent: 'center' }}
+            >
                 {props.personIds.map((personId) => (
                     <button
                         key={personId}

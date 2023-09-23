@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { Message } from './Message';
 import { PersonChoice } from './PersonChoice';
 import { TextChoice } from './TextChoice';
-import { CurrentTopic } from './CurrentTopic';
 
 interface Props {
+    index: number;
     node: ChatNode;
     selectedNode: ChatNode | undefined;
     selectedNodeChildren: ChatNode[];
@@ -14,6 +14,7 @@ interface Props {
 }
 
 const NodeRenderer: FC<Props> = ({
+    index,
     node,
     selectedNode,
     selectedNodeChildren,
@@ -27,27 +28,24 @@ const NodeRenderer: FC<Props> = ({
 
     return (
         <div>
-            <div>
-                {!isRoot && <Message chatNode={node} />}
-                {isCurrent && !hasChildren && (
-                    <PersonChoice
-                        personIds={['teacher', 'dad', 'fakeNews']}
-                        onPress={(id) => {
-                            getNextTitles(node, id);
-                        }}
-                        disabled={!isCurrent}
-                    />
-                )}
-                {isCurrent && hasChildren && (
-                    <TextChoice
-                        personId={node.personId ?? 'teacher'}
-                        onPress={(n) => getText(n)}
-                        childrenNode={selectedNodeChildren}
-                        disabled={!isCurrent}
-                    />
-                )}
-        
-            </div>      
+            {!isRoot && <Message chatNode={node} index={index} />}
+            {isCurrent && !hasChildren && (
+                <PersonChoice
+                    personIds={['teacher', 'dad', 'fakeNews']}
+                    onPress={(id) => {
+                        getNextTitles(node, id);
+                    }}
+                    disabled={!isCurrent}
+                />
+            )}
+            {isCurrent && hasChildren && (
+                <TextChoice
+                    personId={node.personId ?? 'teacher'}
+                    onPress={(n) => getText(n)}
+                    childrenNode={selectedNodeChildren}
+                    disabled={!isCurrent}
+                />
+            )}
         </div>
     );
 };
