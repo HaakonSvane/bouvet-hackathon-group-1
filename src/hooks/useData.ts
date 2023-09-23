@@ -77,7 +77,11 @@ export const useData = () => {
                 },
                 ...promptHistory,
                 {
-                    content: `Tell me more about "${node.title}"`,
+                    content: persons[node.personId].contentPrompt,
+                    role: 'system',
+                },
+                {
+                    content: `Tell me more about "${node.title}" in about 20 words`,
                     role: 'user',
                 },
             ]
@@ -110,16 +114,26 @@ export const useData = () => {
                         content: persons[userId].childrenPrompt,
                         role: 'system',
                     },
-                    ...promptHistory,
+                    ...promptHistory.slice(-5),
+                    {
+                        content: persons[userId].childrenPrompt,
+                        role: 'system',
+                    },
                     {
                       content: `
                         Give me three short responses no more than 6 words with
                         a vertical bar (|) between each item. Make sure there are at least three words in each. Only output the
-                        three items, no preamble or postamble.
+                        three items, no preamble or postamble. I repeat, use a vertical bar between each item.
                       `,
                       role: "user"
                     }
-                ]
+                ],
+                // {
+                //   functionCall: {'name': "F"},
+                //   functions: [
+                //     {name: 'F', parameters: {a: 'string', b: 'string', c: 'string'}, description: 'Func'}
+                //   ]
+                // }
             );
             const json = choices?.[0]?.message?.content;
             if (!json) continue;
