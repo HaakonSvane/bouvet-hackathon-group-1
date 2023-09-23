@@ -24,7 +24,7 @@ export default function Home() {
     return (
         <main>
             <div className="flex min-h-screen py-10">
-                <div className="flex flex-col">
+                <div className="flex flex-col items-start justify-end">
                     {[...nodes].reverse().map((node) => {
                         return (
                             <Fragment key={node.id}>
