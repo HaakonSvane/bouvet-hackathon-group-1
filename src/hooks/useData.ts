@@ -110,7 +110,7 @@ export const useData = () => {
                         content: persons[userId].childrenPrompt,
                         role: 'system',
                     },
-                    ...promptHistory,
+                    ...promptHistory.slice(-5),
                     {
                       content: `
                         Give me three short responses no more than 6 words with
@@ -119,7 +119,13 @@ export const useData = () => {
                       `,
                       role: "user"
                     }
-                ]
+                ],
+                // {
+                //   functionCall: {'name': "F"},
+                //   functions: [
+                //     {name: 'F', parameters: {a: 'string', b: 'string', c: 'string'}, description: 'Func'}
+                //   ]
+                // }
             );
             const json = choices?.[0]?.message?.content;
             if (!json) continue;
