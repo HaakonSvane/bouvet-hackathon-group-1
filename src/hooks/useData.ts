@@ -85,7 +85,7 @@ export const useData = () => {
         setNodes((m) =>
             m.map((mm) =>
                 mm.id === node.id
-                    ? { ...mm, text: (choices?.[0]?.message?.content ?? '').replace(/^\{ ?\"fact\": ?\"/, '').replace(/\" ?\}$/, '') ?? null }
+                    ? { ...mm, text: (choices?.[0]?.message?.content ?? '') ?? null }
                     : mm
             )
         );
@@ -111,14 +111,23 @@ export const useData = () => {
                         role: 'system',
                     },
                     ...promptHistory,
+                    {
+                      content: `
+                        Give me three short responses no more than 6 words with
+                        a vertical bar (|) between each item. Make sure there are at least three words in each. Only output the
+                        three items, no preamble or postamble.
+                      `,
+                      role: "user"
+                    }
                 ]
             );
             const json = choices?.[0]?.message?.content;
             if (!json) continue;
 
             try {
-                const obj = JSON.parse(json);
-                const strings: string[] = obj.facts;
+                const strings = json.split('|');
+                // const obj = JSON.parse(json);
+                // const strings: string[] = obj.facts;
                 if (strings.some((e) => typeof e !== 'string')) continue;
                 children = strings;
             } catch (e) {
