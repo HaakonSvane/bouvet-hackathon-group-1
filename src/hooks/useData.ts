@@ -50,6 +50,18 @@ export const useData = () => {
         ];
     };
 
+    const nodeChain = useMemo(() => {
+      const arr: ChatNode[] = [];
+      let curr: ChatNode|undefined = selectedNode;
+      while(curr) {
+        arr.push(curr);
+        let old = curr;
+        curr = nodes.find(n => n.id === curr?.parentId);
+        if (!curr) console.log(old);
+      }
+      return arr.reverse();
+    }, [nodes, selectedNode])
+
     /** Get full text for node based on title */
     const getText = async (node: ChatNode) => {
         if (node.parentId === null) return;
@@ -73,7 +85,7 @@ export const useData = () => {
         setNodes((m) =>
             m.map((mm) =>
                 mm.id === node.id
-                    ? { ...mm, text: choices?.[0]?.message?.content ?? null }
+                    ? { ...mm, text: (choices?.[0]?.message?.content ?? '').replace(/^\{ ?\"fact\": ?\"/, '').replace(/\" ?\}$/, '') ?? null }
                     : mm
             )
         );
@@ -154,5 +166,7 @@ export const useData = () => {
         getNextTitles,
         /** True if fetching data from azure */
         isLoading,
+        /** List of nodes connected to current node with oldest first */
+        nodeChain,
     };
 };

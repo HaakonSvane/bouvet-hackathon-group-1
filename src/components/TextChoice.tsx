@@ -17,7 +17,7 @@ const FlexRow = styled.div`
 
 type Props = {
     personId: PersonId;
-    onPress: (personId: PersonId) => void;
+    onPress: (node: ChatNode) => void;
     childrenNode: ChatNode[];
     disabled?: boolean;
 };
@@ -28,6 +28,7 @@ export const TextChoice: FC<Props> = ({
     childrenNode,
     disabled,
 }) => {
+    console.log("TextChoice")
     return (
         <>
             <Typography level="h1">Select something</Typography>
@@ -37,7 +38,7 @@ export const TextChoice: FC<Props> = ({
                 {childrenNode.map((node) => (
                     <button
                         key={node.id}
-                        onClick={() => onPress(personId)}
+                        onClick={() => onPress(node)}
                         disabled={disabled}
                     >
                         {node.title || 'Test'}

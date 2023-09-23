@@ -19,12 +19,15 @@ export default function Home() {
         nodes,
         selectedNode,
         selectedNodeChildren,
+        nodeChain,
     } = useData();
 
+    console.log(nodes);
+    console.log(selectedNodeChildren)
     return (
         <main>
             <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                {[...nodes].reverse().map((node) => {
+                {[...nodeChain].map((node) => {
                     return (
                         <Fragment key={node.id}>
                             <NodeRenderer

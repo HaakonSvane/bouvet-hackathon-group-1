@@ -29,15 +29,16 @@ const NodeRenderer: FC<Props> = ({
 }) => {
     // * state  ------------------------------------------------------------------------
     const isCurrent = node.id === selectedNode?.id;
-    const hasChildren = selectedNodeChildren.length !== 0;
+    const hasChildren = selectedNodeChildren.length > 0;
 
-    const isTextChoice = isCurrent && hasChildren;
+    console.log({isCurrent, hasChildren, node: node.id})
 
     return (
         <>
             <FlexColumn>
                 <Message chatNode={node} />
-                {!isTextChoice && (
+                {!isCurrent && node.text}
+                {isCurrent && !hasChildren && (
                     <PersonChoice
                         personIds={['teacher', 'dad', 'fakeNews']}
                         onPress={(id) => {
@@ -46,10 +47,10 @@ const NodeRenderer: FC<Props> = ({
                         disabled={!isCurrent}
                     />
                 )}
-                {isTextChoice && (
+                {isCurrent && hasChildren && (
                     <TextChoice
                         personId={node.personId ?? 'teacher'}
-                        onPress={() => getText(node)}
+                        onPress={(n) => getText(n)}
                         childrenNode={selectedNodeChildren}
                         disabled={!isCurrent}
                     />
