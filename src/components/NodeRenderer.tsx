@@ -27,7 +27,7 @@ const NodeRenderer: FC<Props> = ({
     const hasChildren = selectedNodeChildren.length > 0;
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {!isRoot && <Message chatNode={node} index={index} />}
             {isCurrent && !hasChildren && (
                 <PersonChoice
@@ -44,6 +44,7 @@ const NodeRenderer: FC<Props> = ({
                     onPress={(n) => getText(n)}
                     childrenNode={selectedNodeChildren}
                     disabled={!isCurrent}
+                    selectedNodeChildren={selectedNodeChildren}
                 />
             )}
         </div>
